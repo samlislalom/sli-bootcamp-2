@@ -88,6 +88,7 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
           border: isOverdue ? 2 : 0,
           borderColor: 'error.main'
         }}
+        data-testid="task-card"
       >
         <CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -136,10 +137,10 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
             </Box>
             
             <Box>
-              <IconButton onClick={() => setEditDialogOpen(true)} size="small">
+              <IconButton onClick={() => setEditDialogOpen(true)} size="small" data-testid="edit-task-button" aria-label="edit task">
                 <EditIcon />
               </IconButton>
-              <IconButton onClick={() => onDelete(task.id)} size="small" color="error">
+              <IconButton onClick={() => onDelete(task.id)} size="small" color="error" data-testid="delete-task-button" aria-label="delete task">
                 <DeleteIcon />
               </IconButton>
             </Box>
@@ -158,6 +159,7 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
               onChange={(e) => handleFormChange('name', e.target.value)}
               fullWidth
               required
+              data-testid="edit-task-name-input"
             />
             
             <TextField
@@ -173,7 +175,7 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
               label="Due Date"
               value={editForm.due_date}
               onChange={(date) => handleFormChange('due_date', date)}
-              slotProps={{ textField: { fullWidth: true } }}
+              slotProps={{ textField: { fullWidth: true, 'data-testid': 'edit-due-date-picker' } }}
             />
             
             <FormControl fullWidth>
@@ -182,6 +184,7 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
                 value={editForm.priority}
                 label="Priority"
                 onChange={(e) => handleFormChange('priority', e.target.value)}
+                data-testid="edit-priority-select"
               >
                 <MenuItem value={1}>Low</MenuItem>
                 <MenuItem value={2}>Medium</MenuItem>
@@ -194,6 +197,7 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
                 <Checkbox
                   checked={editForm.completed}
                   onChange={(e) => handleFormChange('completed', e.target.checked)}
+                  data-testid="completed-checkbox"
                 />
               }
               label="Completed"
@@ -202,7 +206,7 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setEditDialogOpen(false)}>Cancel</Button>
-          <Button onClick={handleEditSubmit} variant="contained">Save</Button>
+          <Button onClick={handleEditSubmit} variant="contained" data-testid="save-task-button">Save</Button>
         </DialogActions>
       </Dialog>
     </LocalizationProvider>

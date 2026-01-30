@@ -34,7 +34,7 @@ function App() {
   const fetchTasks = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/items?sortBy=${sortBy}`);
+      const response = await fetch(`/api/tasks?sortBy=${sortBy}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -51,7 +51,7 @@ function App() {
 
   const handleAddTask = async (taskData) => {
     try {
-      const response = await fetch('/api/items', {
+      const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ function App() {
 
   const handleUpdateTask = async (taskId, updatedData) => {
     try {
-      const response = await fetch(`/api/items/${taskId}`, {
+      const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ function App() {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      const response = await fetch(`/api/items/${taskId}`, {
+      const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'DELETE',
       });
 
@@ -115,7 +115,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="md" sx={{ py: 4 }}>
+      <Container maxWidth="md" sx={{ py: 4 }} data-testid="task-manager-container">
         <Box sx={{ mb: 4 }}>
           <Typography variant="h4" component="h1" gutterBottom align="center">
             Task Manager
@@ -132,6 +132,7 @@ function App() {
               value={sortBy}
               label="Sort By"
               onChange={(e) => setSortBy(e.target.value)}
+              data-testid="sort-select"
             >
               <MenuItem value="priority_date">Smart Sort (Priority & Due Date)</MenuItem>
               <MenuItem value="due_date">Due Date</MenuItem>
@@ -188,6 +189,7 @@ function App() {
             right: 16,
           }}
           onClick={() => setAddDialogOpen(true)}
+          data-testid="add-task-fab"
         >
           <AddIcon />
         </Fab>

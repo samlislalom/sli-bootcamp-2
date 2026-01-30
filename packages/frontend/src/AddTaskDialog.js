@@ -66,6 +66,7 @@ const AddTaskDialog = ({ open, onClose, onSubmit }) => {
               fullWidth
               required
               autoFocus
+              data-testid="task-name-input"
             />
             
             <TextField
@@ -75,13 +76,14 @@ const AddTaskDialog = ({ open, onClose, onSubmit }) => {
               fullWidth
               multiline
               rows={3}
+              data-testid="task-description-input"
             />
             
             <DatePicker
               label="Due Date"
               value={formData.due_date}
               onChange={(date) => handleFormChange('due_date', date)}
-              slotProps={{ textField: { fullWidth: true } }}
+              slotProps={{ textField: { fullWidth: true, 'data-testid': 'due-date-picker' } }}
               minDate={dayjs()}
             />
             
@@ -91,6 +93,7 @@ const AddTaskDialog = ({ open, onClose, onSubmit }) => {
                 value={formData.priority}
                 label="Priority"
                 onChange={(e) => handleFormChange('priority', e.target.value)}
+                data-testid="priority-select"
               >
                 <MenuItem value={1}>Low</MenuItem>
                 <MenuItem value={2}>Medium</MenuItem>
@@ -105,6 +108,7 @@ const AddTaskDialog = ({ open, onClose, onSubmit }) => {
             onClick={handleSubmit} 
             variant="contained"
             disabled={!formData.name.trim()}
+            data-testid="add-task-button"
           >
             Add Task
           </Button>
